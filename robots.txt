@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# TODO: domain véglegesítése után a sitemap URL-t abszolút címre frissíteni
+Sitemap: /sitemap.xml
