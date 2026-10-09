@@ -1,5 +1,4 @@
 User-agent: *
 Allow: /
 
-# TODO: domain véglegesítése után a sitemap URL-t abszolút címre frissíteni
-Sitemap: /sitemap.xml
+Sitemap: https://gt-lakasfelujitas.hu/sitemap.xml
