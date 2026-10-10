@@ -589,6 +589,8 @@ p.proj-scope span{color:var(--muted);font-size:.75rem}
 .f-a{grid-column:1/span 4}.f-b{grid-column:7/span 3}.f-c{grid-column:10/span 3}
 .f-nav{display:flex;flex-direction:column;gap:5px}
 .f-b strong{font-weight:600;color:var(--fg)}
+.f-soc{margin-top:6px;width:auto;min-height:36px;height:36px;padding:0 12px;gap:8px;justify-content:flex-start;width:fit-content}
+.f-soc span{font-size:.8125rem;letter-spacing:.06em}
 .ftr-mark span{color:var(--fg-2)}
 .ftr-base a{font-weight:400;letter-spacing:.04em;color:var(--fg-2)}
 
@@ -636,10 +638,9 @@ h3.proj-title{font-size:var(--t-h3)}
 .mbar{grid-template-columns:1fr!important}
 
 
-/* „Fotók hamarosan” jelzés */
+/* Képfelirat (csak valódi fotóknál jelenik meg, JS adja) */
 .ph-cap b{font-size:.625rem;letter-spacing:.12em;color:var(--sand);margin-bottom:2px}
 .ph-cap{font-size:.6875rem}
-.strip .ph-cap{right:10px;bottom:10px;padding:5px 8px}
 
 
 /* ===================== Kompakt v9: kisebb képek, rövidebb oldal ===================== */
@@ -933,6 +934,63 @@ body.menu-open .hdr{transform:none}
 .call a::after{content:"";position:absolute;left:0;right:0;bottom:-6px;height:1px;background:var(--sand);transform:scaleX(0);transform-origin:right;transition:transform .6s var(--ease)}
 .call a:hover::after{transform:scaleX(1);transform-origin:left}
 
+/* ===================== TIKTOK (v13) ===================== */
+/* Fejléc social-gomb: háromszögletes, hairline-keret, konzisztens a gombok helyett */
+.soc-link{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;color:var(--fg-2);border:1px solid var(--line-2);min-height:38px;transition:color .35s var(--ease),border-color .35s var(--ease),background .35s var(--ease)}
+.soc-link svg{transition:transform .4s var(--ease)}
+.soc-link:hover{color:var(--fg);border-color:var(--fg-2)}
+.soc-link:hover svg{transform:translateY(-2px)}
+.soc-link:focus-visible{outline:2px solid var(--bronze-l);outline-offset:3px}
+.hdr .soc-link{order:2;min-height:38px;width:38px}
+
+/* Mobilmenü social-sor */
+.mm-social{display:flex;align-items:center;gap:12px;margin-top:8px;padding-block:14px;border-top:1px solid var(--line);min-height:48px;font-size:1.0625rem;font-weight:500;letter-spacing:-.01em;color:var(--fg)!important}
+.mm-social svg{color:var(--sand);flex:none}
+.mm-social:active{color:var(--sand)}
+
+/* TikTok ajánló szekció */
+.tt-cta{padding-block:var(--sec);border-top:1px solid var(--line);background:var(--bg-2);overflow:hidden}
+.tt-grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:36px clamp(20px,2.6vw,44px);align-items:center}
+.tt-copy{grid-column:1/span 6;display:flex;flex-direction:column;gap:16px}
+.tt-copy .h2{max-width:14ch}
+.tt-lede{color:var(--fg-2);max-width:30em;font-size:var(--t-l)}
+.tt-btn{width:fit-content;gap:.7em}
+.tt-btn svg{flex:none}
+.tt-visual{grid-column:8/span 5;position:relative;display:flex;align-items:center;justify-content:center;min-height:clamp(210px,24vw,300px);border:1px solid var(--line-2);background:
+  radial-gradient(70% 60% at 70% 30%,rgba(198,188,170,.06),transparent 70%),
+  linear-gradient(180deg,#1E1F1C,#161715);overflow:hidden;transition:border-color .5s var(--ease),transform .5s var(--ease)}
+.tt-visual::before{content:"";position:absolute;left:0;right:0;height:1px;background:var(--sand);opacity:.45;transform:scaleX(0);transform-origin:left;transition:transform .7s var(--ease)}
+.tt-visual::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--sand);opacity:.45;transform:scaleX(0);transform-origin:right;transition:transform .7s var(--ease)}
+.tt-visual:hover{border-color:var(--fg);transform:translateY(-3px)}
+.tt-visual:hover::before,.tt-visual:hover::after{transform:scaleX(1)}
+.tt-note{display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center;padding:28px;color:var(--fg);transition:transform .5s var(--ease)}
+.tt-note svg{color:var(--sand);margin-bottom:4px}
+.tt-note b{font-family:var(--f-serif);font-weight:500;font-size:clamp(1.25rem,1.8vw,1.5rem);letter-spacing:-.01em}
+.tt-note small{font-family:var(--f-ui);font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.tt-visual:hover .tt-note{transform:translateY(-3px)}
+html.js .tt-cta .tt-copy,html.js .tt-visual{opacity:.001;transform:translateY(16px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+html.js .tt-cta.in .tt-copy,html.js .tt-cta.in .tt-visual{opacity:1;transform:none}
+@media (min-width:1024px) and (max-width:1180px){
+  .tt-copy{grid-column:1/span 7}
+  .tt-visual{grid-column:8/span 5}
+}
+@media (max-width:1023px){
+  .tt-copy{grid-column:1/-1}
+  .tt-visual{grid-column:1/-1;min-height:190px}
+}
+@media (max-width:767px){
+  .tt-cta{padding-block:calc(var(--sec)*.85)}
+  .tt-grid{gap:26px}
+  .tt-visual{min-height:170px;order:-1}
+  .tt-note{padding:20px}
+  .tt-btn{width:100%;justify-content:center}
+  .hdr .soc-link{order:0;margin-right:14px;width:42px;height:42px;min-height:42px}
+}
+@media (prefers-reduced-motion:reduce){
+  .tt-visual:hover{transform:none}
+  .tt-visual:hover .tt-note{transform:none}
+}
+
 /* Képszalag hover */
 .strip figure .ph{transition:transform .6s var(--ease)}
 .strip figure:hover .ph .tone{transform:scale(1.06)}
@@ -1044,6 +1102,9 @@ html.js .area-map.in .arc-h,html.js .area-map.in .arc-t{opacity:1;transition-del
       <a class="tlink" href="#kapcsolat">Kapcsolat</a>
     </nav>
     <a class="btn btn--line hdr-cta" href="tel:+36701731379">Hívás <span class="num">+36 70 173 13 79</span></a>
+    <a class="soc-link" href="https://www.tiktok.com/@userwjqo41nfm4" target="_blank" rel="noopener" aria-label="GT-Lakásfelújítás TikTok-profilja" title="TikTok">
+      <svg viewBox="0 0 24 24" width="17" height="17" fill="currentColor" aria-hidden="true" focusable="false"><path d="M19.32 5.56a6.2 6.2 0 0 1-3.68-1.2 6.2 6.2 0 0 1-2.4-3.36h-3.3v12.9a2.94 2.94 0 1 1-2.94-2.94c.3 0 .6.05.88.14V7.7a6.3 6.3 0 0 0-.88-.06 6.24 6.24 0 1 0 6.24 6.24V8.01a9.5 9.5 0 0 0 5.53 1.76V6.47l-.45-.91a6.2 6.2 0 0 1-.05.02z"/></svg>
+    </a>
     <button class="menu-btn" type="button" aria-expanded="false" aria-controls="mmenu" id="menuBtn"><span class="mb-l">MENU</span><i aria-hidden="true"></i></button>
   </div>
 </header>
@@ -1051,12 +1112,20 @@ html.js .area-map.in .arc-h,html.js .area-map.in .arc-t{opacity:1;transition-del
 <div class="mmenu" id="mmenu" aria-hidden="true">
   <nav aria-label="Mobil navigáció">
     <a href="#munkaink">Munkáink <span>01</span></a>
-    <a href="#szolgaltatasok">Szolgáltatások <span>02</span></a>
-    <a href="#terulet">Munkaterület <span>03</span></a>
-    <a href="#folyamat">Folyamat <span>04</span></a>
-    <a href="#rolunk">Rólunk <span>05</span></a>
-    <a href="#kapcsolat">Kapcsolat <span>06</span></a>
+    <a href="#szolgaltatasok">Szolgáltatások <span>01</span></a>
+    <a href="#terulet">Munkaterület <span>02</span></a>
+    <a href="#folyamat">Folyamat <span>03</span></a>
+    <a href="#rolunk">Rólunk <span>04</span></a>
+    <a href="#kapcsolat">Kapcsolat <span>05</span></a>
   </nav>
+  <div class="mmenu-foot">
+    <span class="label">Közvetlen kapcsolat</span>
+    <a href="tel:+36701731379">+36 70 173 13 79</a>
+    <a class="mm-social" href="https://www.tiktok.com/@userwjqo41nfm4" target="_blank" rel="noopener" aria-label="TikTok">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true" focusable="false"><path d="M19.32 5.56a6.2 6.2 0 0 1-3.68-1.2 6.2 6.2 0 0 1-2.4-3.36h-3.3v12.9a2.94 2.94 0 1 1-2.94-2.94c.3 0 .6.05.88.14V7.7a6.3 6.3 0 0 0-.88-.06 6.24 6.24 0 1 0 6.24 6.24V8.01a9.5 9.5 0 0 0 5.53 1.76V6.47c-.86-.25-1.64-.62-2.33-1.1z"/></svg>
+      <span>TikTok — @userwjqo41nfm4</span>
+    </a>
+  </div>
 </div>
 
 <main>
@@ -1071,7 +1140,7 @@ html.js .area-map.in .arc-h,html.js .area-map.in .arc-t{opacity:1;transition-del
           <div class="hero-cta">
             <a class="btn btn--fill only-m" href="tel:+36701731379">Hívás most <span class="ar">↗</span></a>
             <a class="btn btn--fill only-d" href="tel:+36701731379">Hívás <span class="num">+36 70 173 13 79</span></a>
-            <a class="btn btn--line only-d" href="#munkaink">Munkáink <span class="ar">↓</span></a>
+            <a class="btn btn--line only-d" id="heroSecondary" href="#munkaink">Munkáink <span class="ar">↓</span></a>
           </div>
         </div>
         <div class="hero-art" aria-hidden="true">
@@ -1171,7 +1240,7 @@ html.js .area-map.in .arc-h,html.js .area-map.in .arc-t{opacity:1;transition-del
       <div class="shead">
         <p class="label kick">Munkáink</p>
         <h2 id="work-h" class="h2">Referenciák</h2>
-        <p>Saját, elkészült munkáink – a fotók hamarosan felkerülnek.</p>
+        <p>Saját, elkészült lakás- és házfelújításaink.</p>
       </div>
       <div id="projects"></div>
     </div>
@@ -1186,8 +1255,8 @@ html.js .area-map.in .arc-h,html.js .area-map.in .arc-t{opacity:1;transition-del
         <p>Húzza a középső vonalat.</p>
       </div>
       <div class="ba-frame" id="ba" style="--pos:50%">
-        <div class="ph t-lime ba-after" data-src="" data-alt="Utána: elkészült helyiség"><span class="tone"></span><span class="ph-cap"><b>Fotók hamarosan</b>Utána</span></div>
-        <div class="ph t-concrete ba-before" data-src="" data-alt="Előtte: a helyiség a felújítás előtt"><span class="tone"></span><span class="ph-cap"><b>Fotók hamarosan</b>Előtte</span></div>
+        <div class="ph t-lime ba-after" data-src="" data-alt="Utána: elkészült helyiség"><span class="tone"></span></div>
+        <div class="ph t-concrete ba-before" data-src="" data-alt="Előtte: a helyiség a felújítás előtt"><span class="tone"></span></div>
         <span class="ba-tag l">ELŐTTE</span><span class="ba-tag r">UTÁNA</span>
         <div class="ba-handle" role="slider" tabindex="0" aria-label="Előtte–utána összehasonlítás" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50"><span class="ba-knob" aria-hidden="true">‹&nbsp;›</span></div>
       </div>
@@ -1290,16 +1359,38 @@ html.js .area-map.in .arc-h,html.js .area-map.in .arc-t{opacity:1;transition-del
     </section>
   </div>
 
-  <!-- MUNKA KÖZBEN -->
+  <!-- MUNKA KÖZBEN (csak valódi fotókkal jelenik meg — a JS üríti, ha nincs src) -->
   <section class="craft" aria-labelledby="cr-h">
     <div class="wrap">
       <div class="cr-head">
         <p class="label kick">Munka közben</p>
-        <h2 id="cr-h" class="cr-t">Anyag és részlet, közelről. <span class="note">Fotók hamarosan</span></h2>
+        <h2 id="cr-h" class="cr-t">Anyag és részlet, közelről.</h2>
       </div>
     </div>
     <div class="strip-vp" id="stripVp"><div class="strip" id="strip"></div></div>
     <div class="wrap"><p class="strip-hint only-m">Lapozzon oldalra →</p></div>
+  </section>
+
+  <!-- TIKTOK AJÁNLÓ -->
+  <section class="tt-cta" id="tiktok" aria-labelledby="tt-h">
+    <div class="wrap tt-grid">
+      <div class="tt-copy">
+        <p class="label kick">Munkáink videón</p>
+        <h2 id="tt-h" class="h2">Nézd meg munkáinkat <span class="it">videón is!</span></h2>
+        <p class="tt-lede">Valódi felújítások, munkafolyamatok és elkészült projektek a TikTok-oldalunkon.</p>
+        <a class="btn btn--fill tt-btn" href="https://www.tiktok.com/@userwjqo41nfm4" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true" focusable="false"><path d="M19.32 5.56c-1.4-.3-2.66-1-3.68-1.2a6.2 6.2 0 0 1-2.4-3.36h-3.3v12.9a2.94 2.94 0 1 1-2.94-2.94c.3 0 .6.05.88.14V7.7a6.3 6.3 0 0 0-.88-.06 6.24 6.24 0 1 0 6.24 6.24V8.01a9.5 9.5 0 0 0 5.53 1.76V6.47c-.86-.25-1.64-.62-2.33-1.1z"/></svg>
+          Munkáink megtekintése TikTokon <span class="ar">↗</span>
+        </a>
+      </div>
+      <a class="tt-visual" href="https://www.tiktok.com/@userwjqo41nfm4" target="_blank" rel="noopener" aria-label="GT-Lakásfelújítás TikTok-profilja">
+        <span class="tt-note" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="34" height="34" fill="currentColor" aria-hidden="true" focusable="false"><path d="M19.32 5.56c-1.4-.3-2.66-1-3.68-1.2a6.2 6.2 0 0 1-2.4-3.36h-3.3v12.9a2.94 2.94 0 1 1-2.94-2.94c.3 0 .6.05.88.14V7.7a6.3 6.3 0 0 0-.88-.06 6.24 6.24 0 1 0 6.24 6.24V8.01a9.5 9.5 0 0 0 5.53 1.76V6.47c-.86-.25-1.64-.62-2.33-1.1z"/></svg>
+          <b>@userwjqo41nfm4</b>
+          <small>Valódi munkák · felújítás videón</small>
+        </span>
+      </a>
+    </div>
   </section>
 
   <!-- KAPCSOLAT -->
@@ -1330,7 +1421,12 @@ html.js .area-map.in .arc-h,html.js .area-map.in .arc-t{opacity:1;transition-del
   <div class="wrap">
     <div class="ftr-grid">
       <div class="f-a"><span class="label">GT-Lakásfelújítás</span><span>Teljes lakás- és házfelújítás</span><span>Cigánd és környéke · Szlovákia</span></div>
-      <div class="f-b"><span class="label">Kapcsolat</span><a class="tlink" href="tel:+36701731379"><strong>+36 70 173 13 79</strong></a><a class="tlink" href="mailto:tgodzsak@gmail.com">tgodzsak@gmail.com</a></div>
+      <div class="f-b"><span class="label">Kapcsolat</span><a class="tlink" href="tel:+36701731379"><strong>+36 70 173 13 79</strong></a><a class="tlink" href="mailto:tgodzsak@gmail.com">tgodzsak@gmail.com</a>
+        <a class="soc-link f-soc" href="https://www.tiktok.com/@userwjqo41nfm4" target="_blank" rel="noopener" aria-label="GT-Lakásfelújítás TikTok-profilja" title="TikTok">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true" focusable="false"><path d="M19.32 5.56c-1.4-.3-2.66-1-3.68-1.2a6.2 6.2 0 0 1-2.4-3.36h-3.3v12.9a2.94 2.94 0 1 1-2.94-2.94c.3 0 .6.05.88.14V7.7a6.3 6.3 0 0 0-.88-.06 6.24 6.24 0 1 0 6.24 6.24V8.01a9.5 9.5 0 0 0 5.53 1.76V6.47c-.86-.25-1.64-.62-2.33-1.1z"/></svg>
+          <span>TikTok</span>
+        </a>
+      </div>
       <div class="f-c"><span class="label">Oldal</span>
         <ul class="f-nav"><li><a class="tlink" href="#munkaink">Munkáink</a></li><li><a class="tlink" href="#szolgaltatasok">Szolgáltatások</a></li><li><a class="tlink" href="#terulet">Munkaterület</a></li><li><a class="tlink" href="#folyamat">Folyamat</a></li><li><a class="tlink" href="#rolunk">Rólunk</a></li><li><a class="tlink" href="#kapcsolat">Kapcsolat</a></li><li><a class="tlink" href="adatkezeles.html">Adatkezelési tájékoztató</a></li></ul>
       </div>
@@ -1382,7 +1478,9 @@ html.js .area-map.in .arc-h,html.js .area-map.in .arc-t{opacity:1;transition-del
   ];
   /* Két nyilvános értékelés: szövegük szó szerint, hozzájárulással kerül ide. */
   var REVIEWS = [ { text:null, name:null, source:"Nyilvános ügyfélértékelés" }, { text:null, name:null, source:"Nyilvános ügyfélértékelés" } ];
-  var CRAFT = [["Anyagok","4/5","t-plaster"],["Fal","3/4","t-concrete"],["Gipszkarton","16/11","t-lime"],["Festés","3/4","t-plaster"],["Részlet","1/1","t-concrete"],["Elkészült felület","16/11","t-lime"]];
+  /* CRAFT: [felirat, méretarány, textúra, foto-src]. A negyedik elem (src) üres → a szalag elrejtésre kerül.
+     Visszaállítás: valódi fotó URL-t IDÉNI a 4. pozícióba (pl. "assets/foto/gipszkarton-1.webp"). */
+  var CRAFT = [["Anyagok","4/5","t-plaster",""],["Fal","3/4","t-concrete",""],["Gipszkarton","16/11","t-lime",""],["Festés","3/4","t-plaster",""],["Részlet","1/1","t-concrete",""],["Elkészült felület","16/11","t-lime",""]];
 
   /* --- Rajzlap koordináták --- */
   (function(){
@@ -1434,21 +1532,39 @@ html.js .area-map.in .arc-h,html.js .area-map.in .arc-t{opacity:1;transition-del
   function ph(m, cls, ref){
     return '<figure class="ph ' + m.tone + ' ' + (cls||"") + ' rv-img" style="--ar:' + m.ar + '" data-src="' + esc(m.src||"") + '" data-srcset="' + esc(m.srcset||"") + '" data-alt="' + esc(m.cap) + '">' +
       '<span class="tone"></span>' + (m.sk && !m.src ? sketch(m.sk, m.ar, m.o) : "") +
-      (ref === false ? '' : '<span class="ph-cap"><b>Fotók hamarosan</b>' + (ref ? esc(ref) : '') + '</span>') + '</figure>';
+      (ref ? '<span class="ph-cap">' + esc(ref) + '</span>' : '') + '</figure>';
   }
 
-  /* --- Referenciák --- */
-  $("#projects").innerHTML = PROJECTS.map(function(p, i){
-    var n = ("0" + (i+1)).slice(-2);
-    var media = p.media.map(function(m, j){ return ph(m, "m" + (j+1), m.cap); }).join("");
-    var tag = p.url ? "a" : "article";
-    return '<' + tag + ' class="proj proj--' + p.layout + '"' + (p.url ? ' href="' + esc(p.url) + '"' : '') + '>' +
-      '<div class="proj-media">' + media + '</div>' +
-      '<div class="proj-meta"><h3 class="proj-title"><span class="num">' + n + '</span>' + esc(p.type) + '</h3>' +
-        '<p class="proj-scope">' + p.scope.map(esc).join(", ") + '<span>' + (p.location ? esc(p.location) : "Helyszín és részletek hamarosan") + '</span></p>' +
-        (p.url ? '<span class="proj-link">Projekt megtekintése <span class="ar">→</span></span>' : '') +
-      '</div></' + tag + '>';
-  }).join("");
+  /* --- Referenciák ---
+     HA NINCS PUBLIKÁLHATÓ REFERENCIA, a szekció elrejtésre kerül.
+     Visszaállítás: adjon src-t a PROJECTS / media tömbben (lásd fent),
+     akkor auto-matikusan visszajön. */
+  (function(){
+    var hasRealWork = false;
+    PROJECTS.forEach(function(p){ p.media.forEach(function(m){ if (m.src) hasRealWork = true; }); });
+    var work = $("#munkaink"), ba = $("#elotte-utana"), craft = $(".craft");
+    if (!hasRealWork){
+      if (work) work.hidden = true;
+      if (craft) craft.hidden = true;
+      /* menüpont: Munkáink elrejtése, ha nincs miink megmutatni */
+      $$(".nav a[href='#munkaink'], .mmenu a[href='#munkaink'], .f-nav a[href='#munkaink']").forEach(function(a){ a.closest('li') ? a.closest('li').remove() : a.remove(); });
+      var hs = $("#heroSecondary"); if (hs){ hs.setAttribute("href", "#szolgaltatasok"); hs.innerHTML = 'Szolg\u00e1ltat\u00e1sok <span class="ar">\u2193</span>'; }
+      $("#projects") && (document.querySelector("#projects").innerHTML = "");
+    } else {
+      /* ez a régi render, csak érvényes fotó mellett áll elő */
+      $("#projects").innerHTML = PROJECTS.map(function(p, i){
+        var n = ("0" + (i+1)).slice(-2);
+        var media = p.media.map(function(m, j){ return ph(m, "m" + (j+1), m.cap); }).join("");
+        var tag = p.url ? "a" : "article";
+        return '<' + tag + ' class="proj proj--' + p.layout + '"' + (p.url ? ' href="' + esc(p.url) + '"' : '') + '>' +
+          '<div class="proj-media">' + media + '</div>' +
+          '<div class="proj-meta"><h3 class="proj-title"><span class="num">' + n + '</span>' + esc(p.type) + '</h3>' +
+            '<p class="proj-scope">' + p.scope.map(esc).join(", ") + '<span>' + (p.location ? esc(p.location) : "Helyszín és részletek hamarosan") + '</span></p>' +
+            (p.url ? '<span class="proj-link">Projekt megtekintése <span class="ar">→</span></span>' : '') +
+          '</div></' + tag + '>';
+      }).join("");
+    }
+  })();
 
   /* --- Szolgáltatások --- */
   var list = $("#svcList"), prev = $("#svcPrev");
@@ -1461,7 +1577,7 @@ html.js .area-map.in .arc-h,html.js .area-map.in .arc-t{opacity:1;transition-del
       '</button><div class="svc-body" id="svcb' + i + '"><div><p>' + esc(s[2]) + '</p></div></div></div>';
   }).join(""));
   prev.innerHTML = SERVICES.map(function(s, i){
-    return '<div class="ph ' + s[3] + '" data-i="' + i + '"><span class="tone"></span>' + sketch("room", "4/3", SVC_SK[i]) + '<span class="ph-cap"><b>Fotók hamarosan</b>' + esc(s[1]) + '</span></div>';
+    return '<div class="ph ' + s[3] + '" data-i="' + i + '"><span class="tone"></span>' + sketch("room", "4/3", SVC_SK[i]) + '</div>';
   }).join("");
   var canHover = window.matchMedia("(hover: hover) and (min-width: 1024px)");
   $$(".svc-row", list).forEach(function(row){
@@ -1480,12 +1596,18 @@ html.js .area-map.in .arc-h,html.js .area-map.in .arc-t{opacity:1;transition-del
   });
   list.addEventListener("mouseleave", function(){ prev.classList.remove("on"); });
 
-  /* --- Munka közben szalag --- */
-  $("#strip").innerHTML = CRAFT.map(function(c, i){
-    var n = ("0" + (i+1)).slice(-2);
-    return '<figure>' + ph({tone:c[2], ar:c[1], cap:c[0]}, "", "").replace("<figure", "<div").replace(/<\/figure>$/, "</div>") +
-      '<figcaption><span class="num">' + n + '</span><b>' + esc(c[0]) + '</b></figcaption></figure>';
-  }).join("");
+  /* --- Munka közben szalag: csak valódi fotókkal jelenik meg --- */
+  var stripEl = $("#strip"), craftSec = $(".craft");
+  var hasRealPhotos = CRAFT.some(function(c){ return c[3] && c[3].length > 0; });
+  if (!hasRealPhotos) {
+    if (craftSec) craftSec.remove();    /* szalag teljes eltávolítása — hamarosan-jelzés sincs, és a hozzá tartozó scroll-logika se fut */
+  } else {
+    stripEl.innerHTML = CRAFT.filter(function(c){ return c[3]; }).map(function(c, i){
+      var n = ("0" + (i+1)).slice(-2);
+      return '<figure>' + ph({tone:c[2], ar:c[1], cap:c[0], src:c[3]}, "", "").replace("<figure", "<div").replace(/<\/figure>$/, "</div>") +
+        '<figcaption><span class="num">' + n + '</span><b>' + esc(c[0]) + '</b></figcaption></figure>';
+    }).join("");
+  };
 
   /* --- Valódi képek, ha van src --- */
   $$(".ph[data-src]").forEach(function(el){
@@ -1594,7 +1716,7 @@ html.js .area-map.in .arc-h,html.js .area-map.in .arc-t{opacity:1;transition-del
   document.addEventListener("keydown", function(e){ if (e.key === "Escape") menu(false); });
 
   /* --- Megjelenés görgetéskor --- */
-  var rv = $$(".rv-img, .rv-txt, .rv-draw");
+  var rv = $$(".rv-img, .rv-txt, .rv-draw, .tt-cta");
   if (!reduce && "IntersectionObserver" in window) {
     var io = new IntersectionObserver(function(es){ es.forEach(function(en){ if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); } }); }, { rootMargin: "0px 0px -8% 0px" });
     rv.forEach(function(el){ io.observe(el); });
@@ -1618,7 +1740,7 @@ html.js .area-map.in .arc-h,html.js .area-map.in .arc-t{opacity:1;transition-del
     var y = window.scrollY, vh = window.innerHeight;
     hdr.classList.toggle("is-compact", y > 24);
     var ct = contact.getBoundingClientRect();
-    mbar.classList.toggle("on", y > hero.offsetHeight * .6 && ct.top > vh * .9);
+    mbar.classList.toggle("on", !!hero && y > hero.offsetHeight * .6 && ct.top > vh * .9);
     var id = ""; secs.forEach(function(s){ if (s.getBoundingClientRect().top < vh * .45) id = s.id; });
     navA.forEach(function(a){ a.classList.toggle("on", !!id && a.getAttribute("href") === "#" + id); });
     if (wide.matches) {
@@ -1631,7 +1753,7 @@ html.js .area-map.in .arc-h,html.js .area-map.in .arc-t{opacity:1;transition-del
       setStage(st);
       lyItems.forEach(function(li, k){ li.classList.toggle("on", k <= st); });
     }
-    if (desk.matches && !reduce) {
+    if (desk.matches && !reduce && stripVp && strip && stripVp.clientWidth) {
       var sr = stripVp.getBoundingClientRect(), sp = clamp((vh * .3 - sr.top) / (vh * .9)), over = Math.min(240, Math.max(0, strip.scrollWidth - stripVp.clientWidth));
       strip.style.transform = "translate3d(" + (-over * sp).toFixed(1) + "px,0,0)";
     }
